@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/mvpproject');
 
 var db = mongoose.connection;
 
@@ -12,8 +12,12 @@ db.once('open', function() {
 });
 
 var itemSchema = mongoose.Schema({
-  quantity: Number,
-  description: String
+  zipcode: { type: String, required: true},
+  timeStart: { type: Date, required: true},
+  timeEnd: { type: Date, required: true},
+  tempMax: { type: Number, required: true},
+  tempMin: { type: Number, required: true}
+  // TODO: CREATE UNIQUE COMPOSITE INDEX
 });
 
 var Item = mongoose.model('Item', itemSchema);
