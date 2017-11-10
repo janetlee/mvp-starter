@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded());
 // Internal get call
 app.get('/items', function (req, res) {
   items.selectAll(function(err, data) {
-    if(err) {
+    if(res === undefined) {
       res.sendStatus(500);
     } else {
       res.json(data);
@@ -20,17 +20,16 @@ app.get('/items', function (req, res) {
   });
 });
 
-app.post('/items', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-      console.log(data);
-    }
-  });
-});
+app.post('/items', ((req, res, next) => {
+  if (!req) {
+    res.status(500).send('Bad request');
+  } else {
+    console.log('Received POST call data: ', req.body);
+    res.status(201).send('Received POST');
 
+    // Call the NWS helpers file and do the API call.
+  }
+}));
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
