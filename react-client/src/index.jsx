@@ -7,7 +7,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      zipcode: ''
     }
   }
 
@@ -16,7 +16,7 @@ class App extends React.Component {
       url: '/items',
       success: (data) => {
         this.setState({
-          items: data
+          zipcode: data
         })
       },
       error: (err) => {
@@ -25,13 +25,19 @@ class App extends React.Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit(data) {
+    console.log(this);
+    console.log('Zip Code was submitted: ' + data);
+
     // user clicks the Submit button and it forms the HTML request and makes the call to the server
     $.ajax({
       url: '/items',
       method: 'POST',
+      data: {zipcode: data},
       success: (data) => {
         console.log('Submitted POST call');
+        // TODO: build out something here to keep track of submitted zip codes?
+        // TODO: make call out to NWS
       },
       error: (err) => {
         console.log('err', err);
@@ -42,7 +48,7 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>Weatber by Zip Code</h1>
-      <List handleSubmit={this.handleSubmit.bind(this)} items={this.state.items}/>
+      <List handleSubmit={this.handleSubmit.bind(this)} zipcode={this.state.zipcode}/>
     </div>)
   }
 }
