@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import List from './components/List.jsx';
+import Search from './components/Search.jsx';
+// import Display from './components/Display.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -29,7 +30,6 @@ class App extends React.Component {
     console.log(this);
     console.log('Zip Code was submitted: ' + data);
 
-    // user clicks the Submit button and it forms the HTML request and makes the call to the server
     $.ajax({
       url: '/items',
       method: 'POST',
@@ -37,7 +37,6 @@ class App extends React.Component {
       success: (data) => {
         console.log('Submitted POST call');
         // TODO: build out something here to keep track of submitted zip codes?
-        // TODO: make call out to NWS
       },
       error: (err) => {
         console.log('err', err);
@@ -47,8 +46,8 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      <h1>Weatber by Zip Code</h1>
-      <List handleSubmit={this.handleSubmit.bind(this)} zipcode={this.state.zipcode}/>
+      <h1>Weather by Zip Code</h1>
+      <Search handleSubmit={this.handleSubmit.bind(this)} zipcode={this.state.zipcode}/>
     </div>)
   }
 }

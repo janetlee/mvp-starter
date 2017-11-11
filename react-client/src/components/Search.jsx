@@ -1,8 +1,8 @@
 import React from 'react';
-import ListItem from './ListItem.jsx';
 import App from '../index.jsx'
+import Display from './Display.jsx';
 
-class List extends React.Component {
+class Search extends React.Component {
   constructor (props) {
     super(props);
 
@@ -25,11 +25,13 @@ class List extends React.Component {
       <div>
         <input type="text" value={this.state.zipEntry} onChange={this.handleZipcodeEntry.bind(this)}></input>
         <button onClick={this.handleSubmit.bind(this, this.state.zipEntry)} >Submit!</button>
+       <Display zipcode={this.state.zipEntry}/>
       </div>
+
     );
   }
 
 }
 
 
-export default List;
+export default Search;
