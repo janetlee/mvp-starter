@@ -32,24 +32,27 @@ app.post('/items', ((req, res, next) => {
       .then((body) => {
         console.log('Sending Geocode to DB');
         items.saveGeocode(body);
+        console.log('Returning from Geocode DB');
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         console.log('handling promise rejection on Geocode data write');
       });
 
 // TEMPORARILY DISABLING NWS CALLS
-    // helpers.getNWSData(req.body)
-    //   .then((body) => {
-    //     console.log('NWS data received');
-    //     // setTimeout(function() {
-    //     XMLParser(body, function (err, result) {
-    //       console.log('INSIDE THE PARSER');
-    //       items.saveWeather(result);
-    //     });
-    //   })
-    //   .catch(() => {
-    //     console.log('handling promise rejection on NWS data write');
-    //   });
+    helpers.getNWSData(req.body)
+      .then((body) => {
+        console.log('NWS data received');
+        // setTimeout(function() {
+        XMLParser(body, function (err, result) {
+          console.log('INSIDE THE PARSER');
+          items.saveWeather(result);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log('handling promise rejection on NWS data write');
+      });
 
     res.status(201).send('Received POST');
   }

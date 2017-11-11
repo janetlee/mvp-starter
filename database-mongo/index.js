@@ -23,50 +23,13 @@ let weatherSchema = mongoose.Schema({
 
 let geocodeSchema = mongoose.Schema({
   zipcode: { type: String, required: true, unique: true},
-  lat: { type: String, required: true},
-  long: { type: String, required: true}
+  lat: { type: Number, required: true},
+  long: { type: Number, required: true}
 });
 
 let Weather = mongoose.model('Weather', weatherSchema);
-
-var saveWeather = ((data) => {
-  console.log('Inside saveWeather');
-  console.log(data.dwml.data[0].location[0].point[0]['$']['latitude']);
-
-  var incomingWeather = {
-    lat: data.dwml.data[0].location[0].point[0]['$']['latitude'],
-    long: data.dwml.data[0].location[0].point[0]['$']['longitude'],
-    timeStart: data.dwml.data[0]['time-layout'][0]['start-valid-time'][0], // begin
-    timeEnd: data.dwml.data[0]['time-layout'][0]['end-valid-time'][0], //end
-    tempType: data.dwml.data[0].parameters[0].temperature[0].name[0],
-    temp: data.dwml.data[0].parameters[0].temperature[0].value[0]
-  };
-
-  console.dir(incomingData);
-
-  var weather = new Weather(incomingWeather);
-    weather.save()
-    .then(data => {
-      console.log("Weather saved to database");
-    })
-    .catch(err => {
-      console.log(err);
-      console.log("unable to save to database");
-    });
-});
-
-
-var retrieveWeather = function(callback) {
-  Weather.find({}, function(err, items) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, items);
-    }
-  });
-};
-
 let Geocode = mongoose.model('Geocode', geocodeSchema);
+
 
 var saveGeocode = ((body) => {
   console.log('Inside saveGeocode');
@@ -79,9 +42,15 @@ var saveGeocode = ((body) => {
 
   console.dir(incomingGeocode);
 
-  var geocode = new Geocode(incomingData);
-    geocode.save()
+  var geocode = new Geocode(incomingGeocode);
+
+  geocode.save((err) => {
+    if (err) {
+      console.log(err);
+    }
+  })
     .then(data => {
+      console.log(data);
       console.log("Geocode saved to database");
     })
     .catch(err => {
@@ -101,6 +70,43 @@ var retrieveGeocode = function(callback) {
   });
 };
 
+var saveWeather = ((data) => {
+  console.log('Inside saveWeather');
+  console.log(data.dwml.data[0].location[0].point[0]['$']['latitude']);
+
+  var incomingWeather = {
+    lat: data.dwml.data[0].location[0].point[0]['$']['latitude'],
+    long: data.dwml.data[0].location[0].point[0]['$']['longitude'],
+    timeStart: data.dwml.data[0]['time-layout'][0]['start-valid-time'][0], // begin
+    timeEnd: data.dwml.data[0]['time-layout'][0]['end-valid-time'][0], //end
+    tempType: data.dwml.data[0].parameters[0].temperature[0].name[0],
+    temp: data.dwml.data[0].parameters[0].temperature[0].value[0]
+  };
+
+  console.dir(incomingWeather);
+
+  var weather = new Weather(incomingWeather);
+
+  weather.save()
+    .then(data => {
+      console.log("Weather saved to database");
+    })
+    .catch(err => {
+      console.log(err);
+      console.log("unable to save to database");
+    });
+});
+
+
+var retrieveWeather = function(callback) {
+  Weather.find({}, function(err, items) {
+    if(err) {
+      callback(err, null);
+    } else {
+      callback(null, items);
+    }
+  });
+};
 
 module.exports.saveWeather = saveWeather;
 module.exports.retrieveWeather = retrieveWeather;
