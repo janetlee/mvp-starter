@@ -12,7 +12,7 @@ class Display extends React.Component {
   render(zipcode) {
     return (
       <div>
-        <h1>Minimum Temperature in {this.state.zipcode}</h1>
+        <h1>The Temperature in {this.state.zipcode}</h1>
       </div>
     )
   }

@@ -19,19 +19,19 @@ Once the project moves into development, the press release can be used as a touc
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
-  How cold is it?
+  Temperature Roulette
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-  This app will return the coldest forecasted temperature for the current day.
+  This app will return a forecasted temperature for the current day. (Could be the minimum or the maximum)
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-  Punch in a zipcode and presto, receive back the coldest temperature for the day and plan for wearing a sweater, a jacket, or layer on hat & gloves because it might be colder than you think.
+  Punch in a zipcode and presto, receive back a temperature for the day and plan for wearing a sweater, a jacket if it's the Daily Minimum, or a tank top if it's the Daily Maximum.
 
 ## Problem ##
   > Describe the problem your product solves.
-  This app solves the problem of knowing how cold it is where you are.
+  This app solves nothing, but adds a little weather fun to the day.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
@@ -47,7 +47,7 @@ Once the project moves into development, the press release can be used as a touc
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
-  "Every morning, I cannot decide whether or not to wear a jacket. With this app I never have to guess!"
+  "Every morning, I cannot decide whether or not to wear a jacket. With this app I never have to guess if it's too hot for a jacket!"
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.

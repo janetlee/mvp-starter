@@ -1,15 +1,29 @@
 // National Weather Service helpers
 var config = require('../config');
 var express = require('express');
+var moment = require('moment');
 var Promises = require('bluebird');
 var request = require('request');
+
+
+
+// console.log(now.format("YYYY-MM-DDTHH:mm:ssZ"));
+// console.log(moment('2016-03-12 13:00:00').add(1, 'day').format("YYYY-MM-DDTHH:mm:ss"))
+
+var now = moment();
+var dateToday = (now.format("YYYY-MM-DDTHH:mm:ss"));
+var dateTomorrow = (moment(dateToday).add(1, 'day').format("YYYY-MM-DDTHH:mm:ss"));
 
 module.exports.getNWSData = function(body) {
   let options = {
     url: 'https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?zipCodeList='
         + body.zipcode
 // TODO: Need to parse for date things to enter today's date
-        + '&product=time-series&begin=2017-10-10T00:00:00&end=2017-11-11T00:00:00&maxt=maxt&mint=mint'
+        + '&product=time-series&begin='
+        + dateToday
+        + '&end='
+        + dateTomorrow +
+        '&maxt=maxt&mint=mint'
         ,
     headers: {
       'User-Agent': 'request',
