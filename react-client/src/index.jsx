@@ -2,23 +2,34 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
-// import Display from './components/Display.jsx';
+import Display from './components/Display.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      zipcode: ''
+      zipcode: '',
+      timeStart: '',
+      tempMax: '',
+      tempMin: ''
     }
   }
 
   componentDidMount() {
+    console.log('COMPONENT DID MOUNT IS RUNNING');
     $.ajax({
       url: '/items',
       success: (data) => {
-        this.setState({
-          zipcode: data
-        })
+        console.log('CHANGING STATES');
+        if (data) {
+          this.setState({
+            zipcode: this.state.zipcode,
+            timeStart: data[0].timeStart.slice(11, 19) || '',
+            tempMax: data[0].tempMax || '',
+            tempMin: data[0].tempMin || ''
+          })
+        }
+        console.log(data);
       },
       error: (err) => {
         console.log('err', err);
@@ -27,16 +38,24 @@ class App extends React.Component {
   }
 
   handleSubmit(data) {
-    console.log(this);
     console.log('Zip Code was submitted: ' + data);
 
+    var context = this.state;
     $.ajax({
       url: '/items',
       method: 'POST',
       data: {zipcode: data},
       success: (data) => {
         console.log('Submitted POST call');
-        // TODO: build out something here to keep track of submitted zip codes?
+        console.log('CHANGING STATES');
+        console.log(data);
+
+        this.setState({
+          zipcode: this.state.zipcode,
+          timeStart: data[0].timeStart.slice(11, 19),
+          tempMax: data[0].tempMax,
+          tempMin: data[0].tempMin
+        });
       },
       error: (err) => {
         console.log('err', err);
@@ -47,7 +66,10 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>Weather by Zip Code</h1>
-      <Search handleSubmit={this.handleSubmit.bind(this)} zipcode={this.state.zipcode}/>
+      <Search handleSubmit={this.handleSubmit.bind(this)}
+        zipcode={this.state.zipcode}
+        />
+      <Display zipcode={this.state.zipcode} timeStart={this.state.timeStart} tempMax={this.state.tempMax} tempMin={this.state.tempMin}/>
     </div>)
   }
 }

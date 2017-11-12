@@ -5,11 +5,6 @@ var moment = require('moment');
 var Promises = require('bluebird');
 var request = require('request');
 
-
-
-// console.log(now.format("YYYY-MM-DDTHH:mm:ssZ"));
-// console.log(moment('2016-03-12 13:00:00').add(1, 'day').format("YYYY-MM-DDTHH:mm:ss"))
-
 var now = moment();
 var dateToday = (now.format("YYYY-MM-DDTHH:mm:ss"));
 var dateTomorrow = (moment(dateToday).add(1, 'day').format("YYYY-MM-DDTHH:mm:ss"));
@@ -18,20 +13,16 @@ module.exports.getNWSData = function(body) {
   let options = {
     url: 'https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?zipCodeList='
         + body.zipcode
-// TODO: Need to parse for date things to enter today's date
         + '&product=time-series&begin='
-        + dateToday
-        + '&end='
-        + dateTomorrow +
-        '&maxt=maxt&mint=mint'
-        ,
+        + dateToday + '&end='
+        + dateTomorrow + '&maxt=maxt&mint=mint',
     headers: {
       'User-Agent': 'request',
       'Authorization': `token ${config.NWSTOKEN}`
     }
   };
 
-  console.log(options);
+  // console.log(options);
   // pass the requst options to the request in a Promise
   return new Promise ((resolve, reject) => {
     request(options, (err, res, body) => {
@@ -53,7 +44,7 @@ module.exports.getGeocoding = function(body) {
     }
   };
 
-  console.log(options);
+  // console.log(options);
   return new Promise ((resolve, reject) => {
     request(options, (err, res, body) => {
       if (err) {

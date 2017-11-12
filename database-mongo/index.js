@@ -12,84 +12,53 @@ db.once('open', function() {
 });
 
 let weatherSchema = mongoose.Schema({
-  lat: { type: Number, required: true},
-  long: { type: Number, required: true},
+  zipcode: { type: String, required: true},
   timeStart: { type: String, required: true},
   timeEnd: { type: String, required: true},
-  tempType: { type: String, required: true},
-  temp: { type: Number, required: true}
+  tempMax: { type: Number, required: false},
+  tempMin: { type: Number, required: true},
+  forecastURL: { type: String, required: false}
   // TODO: CREATE UNIQUE COMPOSITE INDEX
 });
 
-let geocodeSchema = mongoose.Schema({
-  zipcode: { type: String, required: true, unique: true},
-  lat: { type: Number, required: true},
-  long: { type: Number, required: true}
-});
-
 let Weather = mongoose.model('Weather', weatherSchema);
-let Geocode = mongoose.model('Geocode', geocodeSchema);
 
+var saveWeather = ((data, callback) => {
+  console.log('Inside saveWeather');
 
-var saveGeocode = ((body) => {
-  console.log('Inside saveGeocode');
-
-  var incomingGeocode = {
-    zipcode: body['results'][0]['address_components'][0]['long_name'],
-    lat: body['results'][0]['geometry']['location']['lat'],
-    long: body['results'][0]['geometry']['location']['lng']
+  let firstTemp = function(data){
+    let a = data.dwml.data[0].parameters[0].temperature[0].name[0];
+    if (a === 'Daily Maximum Temperature') {
+      return data.dwml.data[0].parameters[0].temperature[0].value[1];
+    } else {
+      return null;
+    }
   };
 
-  console.dir(incomingGeocode);
-
-  var geocode = new Geocode(incomingGeocode);
-
-  geocode.save((err) => {
-    if (err) {
-      console.log(err);
-    }
-  })
-    .then(data => {
-      console.log(data);
-      console.log("Geocode saved to database");
-    })
-    .catch(err => {
-      console.log(err);
-      console.log("unable to save Geocode to database");
-    });
-});
-
-
-var retrieveGeocode = function(callback) {
-  Geocode.find({}, function(err, items) {
-    if(err) {
-      callback(err, null);
+  let secondTemp = function(data){
+    let a = data.dwml.data[0].parameters[0].temperature[0].name[0];
+    if (a === 'Daily Minimum Temperature') {
+      return data.dwml.data[0].parameters[0].temperature[0].value[0];
     } else {
-      callback(null, items);
+      return data.dwml.data[0].parameters[0].temperature[1].value[0];
     }
-  });
-};
-
-var saveWeather = ((data) => {
-  console.log('Inside saveWeather');
-  console.log(data.dwml.data[0].location[0].point[0]['$']['latitude']);
+  };
 
   var incomingWeather = {
-    lat: data.dwml.data[0].location[0].point[0]['$']['latitude'],
-    long: data.dwml.data[0].location[0].point[0]['$']['longitude'],
+    zipcode: data.results[0]['address_components'][0]['long_name'],
     timeStart: data.dwml.data[0]['time-layout'][0]['start-valid-time'][0], // begin
     timeEnd: data.dwml.data[0]['time-layout'][0]['end-valid-time'][0], //end
-    tempType: data.dwml.data[0].parameters[0].temperature[0].name[0],
-    temp: data.dwml.data[0].parameters[0].temperature[0].value[0]
+    tempMax: firstTemp(data),
+    tempMin: secondTemp(data),
+    forecastURL: data.dwml.data[0].moreWeatherInformation[0]['_']
   };
-
-  console.dir(incomingWeather);
 
   var weather = new Weather(incomingWeather);
 
   weather.save()
     .then(data => {
       console.log("Weather saved to database");
+      callback(null, data);
     })
     .catch(err => {
       console.log(err);
@@ -97,9 +66,9 @@ var saveWeather = ((data) => {
     });
 });
 
-
-var retrieveWeather = function(callback) {
-  Weather.find({}, function(err, items) {
+var retrieveWeather = function(zipcode, callback) {
+  console.log('INSIDE WEATHER RETRIEVAL METHOD');
+  Weather.find({'zipcode': zipcode}, function(err, items) {
     if(err) {
       callback(err, null);
     } else {
@@ -110,5 +79,3 @@ var retrieveWeather = function(callback) {
 
 module.exports.saveWeather = saveWeather;
 module.exports.retrieveWeather = retrieveWeather;
-module.exports.saveGeocode = saveGeocode;
-module.exports.retrieveGeocode = retrieveGeocode;

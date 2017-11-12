@@ -5,14 +5,19 @@ class Display extends React.Component {
     super(props);
 
     this.state = {
-      zipcode: props.zipcode
+      zipcode: props.zipcode,
+      timeStart: props.timeStart,
+      tempMax: props.tempMax,
+      tempMin: props.tempMin
     };
   }
 
   render(zipcode) {
     return (
       <div>
-        <h1>The Temperature in {this.state.zipcode}</h1>
+        <h1>The Temperature at {this.props.timeStart} in {this.props.zipcode}</h1>
+        <h3>High Temperature: {this.props.tempMax}</h3>
+        <h3>Low Temperature: {this.props.tempMin}</h3>
       </div>
     )
   }

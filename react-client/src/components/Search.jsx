@@ -25,12 +25,10 @@ class Search extends React.Component {
       <div>
         <input type="text" value={this.state.zipEntry} onChange={this.handleZipcodeEntry.bind(this)}></input>
         <button onClick={this.handleSubmit.bind(this, this.state.zipEntry)} >Submit!</button>
-       <Display zipcode={this.state.zipEntry}/>
       </div>
 
     );
   }
-
 }
 
 
