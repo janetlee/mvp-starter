@@ -11,7 +11,8 @@ class App extends React.Component {
       zipcode: '',
       timeStart: '',
       tempMax: '',
-      tempMin: ''
+      tempMin: '',
+      forecastURL: ''
     }
   }
 
@@ -26,7 +27,8 @@ class App extends React.Component {
             zipcode: this.state.zipcode,
             timeStart: data[0].timeStart.slice(11, 19) || '',
             tempMax: data[0].tempMax || '',
-            tempMin: data[0].tempMin || ''
+            tempMin: data[0].tempMin || '',
+            forecastURL: data[0].forecastURL || ''
           })
         }
         console.log(data);
@@ -51,10 +53,11 @@ class App extends React.Component {
         console.log(data);
 
         this.setState({
-          zipcode: this.state.zipcode,
+          zipcode: data[0].zipcode,
           timeStart: data[0].timeStart.slice(11, 19),
           tempMax: data[0].tempMax,
-          tempMin: data[0].tempMin
+          tempMin: data[0].tempMin,
+          forecastURL: data[0].forecastURL
         });
       },
       error: (err) => {
@@ -69,7 +72,12 @@ class App extends React.Component {
       <Search handleSubmit={this.handleSubmit.bind(this)}
         zipcode={this.state.zipcode}
         />
-      <Display zipcode={this.state.zipcode} timeStart={this.state.timeStart} tempMax={this.state.tempMax} tempMin={this.state.tempMin}/>
+      <Display zipcode={this.state.zipcode}
+        timeStart={this.state.timeStart}
+        tempMax={this.state.tempMax}
+        tempMin={this.state.tempMin}
+        forecastURL={this.state.forecastURL}
+        />
     </div>)
   }
 }
