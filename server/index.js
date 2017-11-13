@@ -35,11 +35,7 @@ app.post('/items', ((req, res, next) => {
     items.retrieveWeather(req.body, function(err, data) {
       if(res === undefined) {
         res.sendStatus(500);
-      } else {
-        // console.log('WEATHER DATA INSIDE Database', data);
-        // if (data.length > 0) {
-        //   res.json(data);
-        // } else {
+      } else if (data.length === 0) {
           console.log('MAKING EXTERNAL API CALLS');
           helpers.getGeocoding(req.body)
             .then((body) => {

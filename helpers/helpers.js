@@ -1,4 +1,4 @@
-// National Weather Service helpers
+// National Weather Service & Google Maps helpers
 var config = require('../config');
 var express = require('express');
 var moment = require('moment');

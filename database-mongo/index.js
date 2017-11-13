@@ -46,6 +46,9 @@ var saveWeather = ((data, callback) => {
 
   var incomingWeather = {
     zipcode: data.results[0]['address_components'][0]['long_name'],
+    // UNCOMMENT THESE TWO LINES TO FAKE HISTORICAL DATA
+    // timeStart: "2017-11-01T07:00:00-06:00",
+    // timeEnd: "2017-11-01T19:00:00-06:00",
     timeStart: data.dwml.data[0]['time-layout'][0]['start-valid-time'][0], // begin
     timeEnd: data.dwml.data[0]['time-layout'][0]['end-valid-time'][0], //end
     tempMax: firstTemp(data),
