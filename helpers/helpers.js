@@ -57,3 +57,5 @@ module.exports.getGeocoding = function(body) {
     })
   })
 };
+
+module.exports.getLastRecord = (data => data[data.length-1])

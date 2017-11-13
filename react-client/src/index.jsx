@@ -9,6 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       zipcode: '',
+      forecastDate: '',
       timeStart: '',
       tempMax: '',
       tempMin: '',
@@ -25,6 +26,7 @@ class App extends React.Component {
         if (data) {
           this.setState({
             zipcode: this.state.zipcode,
+            forecastDate: this.state.forecastDate || '',
             timeStart: data[0].timeStart.slice(11, 19) || '',
             tempMax: data[0].tempMax || '',
             tempMin: data[0].tempMin || '',
@@ -51,6 +53,7 @@ class App extends React.Component {
         console.log('Submitted POST call');
         console.log('CHANGING STATES');
         console.log(data);
+        console.log('DATE STAMP: ', data[0].timeStart.slice(0, 10));
 
         if (data.length > 0) {
           this.setState({
