@@ -6,12 +6,13 @@ var XMLParser = require('xml2js').parseString;
 var underscore = require('underscore');
 var Promises = require('bluebird');
 var moment = require('moment');
-
+var helmet = require('helmet');
 
 Promises.promisify(XMLParser);
 
 var app = express();
 
+app.use(helmet());
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -110,10 +111,9 @@ app.post('/items', ((req, res, next) => {
         let dateOnRecord = data[data.length-1].timeEnd.slice(0,19);
         var now = moment();
         var dateToday = (now.format("YYYY-MM-DDTHH:mm:ss[Z]"));
-        console.log('dateToday:        ', dateToday);
-        console.log('date from the DB: ', dateOnRecord);
+        // console.log('dateToday:        ', dateToday);
+        // console.log('date from the DB: ', dateOnRecord);
         if (dateToday > dateOnRecord) {
-          // get fresh data
           console.log('NEEDS NEWER DATA');
           helpers.getGeocoding(req.body)
             .then((body) => {
@@ -134,7 +134,7 @@ app.post('/items', ((req, res, next) => {
                   })
                 })
                 .then((result) => {
-                  console.log('PARSED TEXT TO PASS TO SAVE FUNCTION', result);
+                  // console.log('PARSED TEXT TO PASS TO SAVE FUNCTION', result);
                   return new Promise ((resolve, reject) => {
                     items.saveWeather(result, function (err, zipcode) {
                       if (err) {
@@ -162,6 +162,7 @@ app.post('/items', ((req, res, next) => {
                 .then((data) => {
                   console.log('DATA BEFORE SENDING OUT',  data);
                   let currentRecord = helpers.getLastRecord(data);
+                  console.log('Log the currentRecord: ', currentRecord);
                   res.json(currentRecord);
                   res.status(201);
                 })

@@ -58,4 +58,28 @@ module.exports.getGeocoding = function(body) {
   })
 };
 
+module.exports.getMap = function(body) {
+  let options = {
+    url: 'https://maps.googleapis.com/maps/api/staticmap/' + '&key=' + config.StaticMap_API_KEY,
+    headers: {
+      'User-Agent': 'request'
+    }
+  };
+
+  // console.log(options);
+  return new Promise ((resolve, reject) => {
+    request(options, (err, res, body) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('Inside the Geocode promise');
+        body = JSON.parse(body);
+        resolve(body);
+      }
+    })
+  })
+};
+
+
+
 module.exports.getLastRecord = (data => data[data.length-1])

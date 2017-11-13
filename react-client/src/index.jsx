@@ -11,6 +11,7 @@ class App extends React.Component {
       zipcode: '',
       forecastDate: '',
       timeStart: '',
+      timeEnd: '',
       tempMax: '',
       tempMin: '',
       forecastURL: ''
@@ -25,12 +26,13 @@ class App extends React.Component {
         console.log('CHANGING STATES');
         if (data) {
           this.setState({
-            zipcode: this.state.zipcode,
-            forecastDate: this.state.forecastDate || '',
-            timeStart: data[0].timeStart.slice(11, 19) || '',
-            tempMax: data[0].tempMax || '',
-            tempMin: data[0].tempMin || '',
-            forecastURL: data[0].forecastURL || ''
+            zipcode: data.zipcode || '',
+            forecastDate: data.timeStart.slice(0, 10) || '',
+            timeStart: data.timeStart.slice(11, 19) || '',
+            timeEnd: data.timeEnd.slice(11, 19) || '',
+            tempMax: data.tempMax || '',
+            tempMin: data.tempMin || '',
+            forecastURL: data.forecastURL || ''
           })
         }
         console.log(data);
@@ -53,16 +55,17 @@ class App extends React.Component {
         console.log('Submitted POST call');
         console.log('CHANGING STATES');
         console.log(data);
-        console.log('DATE STAMP: ', data[0].timeStart.slice(0, 10));
+        console.log('DATE STAMP: ', data.timeStart.slice(0, 10));
 
-        if (data.length > 0) {
+        if (data) {
           this.setState({
-            zipcode: data[0].zipcode,
-            forecastDate: data[0].timeStart.slice(0, 10),
-            timeStart: data[0].timeStart.slice(11, 19),
-            tempMax: data[0].tempMax,
-            tempMin: data[0].tempMin,
-            forecastURL: data[0].forecastURL
+            zipcode: data.zipcode,
+            forecastDate: data.timeStart.slice(0, 10),
+            timeStart: data.timeStart.slice(11, 19),
+            timeEnd: data.timeEnd.slice(11, 19),
+            tempMax: data.tempMax,
+            tempMin: data.tempMin,
+            forecastURL: data.forecastURL
           });
         }
       },
@@ -81,6 +84,7 @@ class App extends React.Component {
       <Display zipcode={this.state.zipcode}
         forecastDate={this.state.forecastDate}
         timeStart={this.state.timeStart}
+        timeEnd={this.state.timeEnd}
         tempMax={this.state.tempMax}
         tempMin={this.state.tempMin}
         forecastURL={this.state.forecastURL}
