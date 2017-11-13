@@ -29,7 +29,7 @@ var saveWeather = ((data, callback) => {
   let firstTemp = function(data){
     let a = data.dwml.data[0].parameters[0].temperature[0].name[0];
     if (a === 'Daily Maximum Temperature') {
-      return data.dwml.data[0].parameters[0].temperature[0].value[1];
+      return data.dwml.data[0].parameters[0].temperature[0].value[0];
     } else {
       return null;
     }
@@ -53,17 +53,11 @@ var saveWeather = ((data, callback) => {
     forecastURL: data.dwml.data[0].moreWeatherInformation[0]['_']
   };
 
+  console.log(incomingWeather);
+
   var weather = new Weather(incomingWeather);
 
-  weather.save()
-    .then(data => {
-      console.log("Weather saved to database");
-      callback(null, data);
-    })
-    .catch(err => {
-      console.log(err);
-      console.log("unable to save to database");
-    });
+  callback(null, weather.save());
 });
 
 var retrieveWeather = function(zipcode, callback) {
