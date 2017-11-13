@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+// import '../styles/styles.css';
 import Search from './components/Search.jsx';
 import Display from './components/Display.jsx';
 
@@ -77,11 +78,11 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      <h1>Weather by Zip Code</h1>
-      <Search handleSubmit={this.handleSubmit.bind(this)}
+      <h1 className='header'>Weather by Zip Code</h1>
+      <Search className='Search' handleSubmit={this.handleSubmit.bind(this)}
         zipcode={this.state.zipcode}
         />
-      <Display zipcode={this.state.zipcode}
+      <Display className='Display' zipcode={this.state.zipcode}
         forecastDate={this.state.forecastDate}
         timeStart={this.state.timeStart}
         timeEnd={this.state.timeEnd}
