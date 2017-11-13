@@ -80,10 +80,8 @@ const XMLParse = function(body, geocodeBody) {
   return new Promise ((resolve, reject) => {
     XMLParser(body, function (err, weatherBody) {
       if (err) {
-        reject(err);
+        reject(err, 'ERROR INSIDE THE PARSER');
       } else {
-        console.log('INSIDE THE PARSER');
-        // weatherBody = result;
         resolve(underscore.extend(weatherBody, geocodeBody));
       }
     })

@@ -3,8 +3,9 @@ var express = require('express');
 var helmet = require('helmet');
 var helpers = require('../helpers/helpers.js');
 var items = require('../database-mongo');
-var Promises = require('bluebird');
 var moment = require('moment');
+var Promises = require('bluebird');
+var XMLParser = require('xml2js').parseString;
 
 var app = express();
 
@@ -51,7 +52,8 @@ app.post('/items', ((req, res, next) => {
             geocodeBody = body;
 
             helpers.getNWSData(req.body)
-              .then((body) => helpers.XMLParse(body, geocodeBody))
+              .then((body) => { console.log('right before parsing');  return body; })
+              .then(body => helpers.XMLParse(body, geocodeBody) )
               .then((result) => {
                 console.log('PARSED TEXT TO PASS TO SAVE FUNCTION', result);
                 return new Promise ((resolve, reject) => {

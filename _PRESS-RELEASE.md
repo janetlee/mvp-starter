@@ -17,38 +17,38 @@ Once the project moves into development, the press release can be used as a touc
  -->
 
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+<!--   > Name the product in a way the reader (i.e. your target customers) will understand. -->
 
   Weather by Zip Code
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  <!-- > Describe who the market for the product is and what benefit they get. One sentence only underneath the title. -->
   This app will return forecasted high and low temperatures for the current day for a selected zip code.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  <!-- > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good. -->
   Punch in a zipcode and presto, receive back the daily forecasted high and low temperature for the day and plan your wardrobe. Want more details? You can view the full forecast below the displayed high and low temperatures.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  <!-- > Describe the problem your product solves. -->
   This app provides easy to read high and low temperatures and is a one stop location for the full forecast from the National Weather Service.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  <!-- > Describe how your product elegantly solves the problem. -->
   This app has no ads, no bloat. It does a simple retrieval of data from the National Weather Service's free API.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  <!-- > A quote from a spokesperson in your company. -->
   "I'm always forgetting to bring a jacket! This app keeps me warm!"
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  <!-- > Describe how easy it is to get started. -->
   Know your zip code? Just type it in and hit Submit! It's just that easy.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  <!-- > Provide a quote from a hypothetical customer that describes how they experienced the benefit. -->
   "Every morning, I cannot decide whether or not to wear a jacket. With this app I never have to guess if it's too hot for a jacket!"
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  <!-- > Wrap it up and give pointers where the reader should go next. -->
   Try it out now!
