@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-// import '../styles/styles.css';
 import Search from './components/Search.jsx';
 import Display from './components/Display.jsx';
 
@@ -53,10 +52,6 @@ class App extends React.Component {
       method: 'POST',
       data: {zipcode: data},
       success: (data) => {
-        console.log('Submitted POST call');
-        console.log('CHANGING STATES');
-        console.log(data);
-        console.log('DATE STAMP: ', data.timeStart.slice(0, 10));
 
         if (data) {
           this.setState({

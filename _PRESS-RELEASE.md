@@ -19,23 +19,23 @@ Once the project moves into development, the press release can be used as a touc
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
-  Temperature Roulette
+  Weather by Zip Code
 
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-  This app will return a forecasted temperature for the current day. (Could be the minimum or the maximum)
+  This app will return forecasted high and low temperatures for the current day for a selected zip code.
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-  Punch in a zipcode and presto, receive back a temperature for the day and plan for wearing a sweater, a jacket if it's the Daily Minimum, or a tank top if it's the Daily Maximum.
+  Punch in a zipcode and presto, receive back the daily forecasted high and low temperature for the day and plan your wardrobe. Want more details? You can view the full forecast below the displayed high and low temperatures.
 
 ## Problem ##
   > Describe the problem your product solves.
-  This app solves nothing, but adds a little weather fun to the day.
+  This app provides easy to read high and low temperatures and is a one stop location for the full forecast from the National Weather Service.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
-  This app has no ads, no bloat. It does a simple retrieval of data from the National Weather Service's free API. It translates the Latitude and Longitude back so that that an incoming Zip Code can first be looked up in the database before making the NWS call.
+  This app has no ads, no bloat. It does a simple retrieval of data from the National Weather Service's free API.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
@@ -51,4 +51,4 @@ Once the project moves into development, the press release can be used as a touc
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
-  Try it out at xyz.com right now!
+  Try it out now!

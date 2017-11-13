@@ -1,14 +1,10 @@
-var express = require('express');
 var bodyParser = require('body-parser');
-var items = require('../database-mongo');
+var express = require('express');
+var helmet = require('helmet');
 var helpers = require('../helpers/helpers.js');
-// var XMLParser = require('xml2js').parseString;
-// var underscore = require('underscore');
+var items = require('../database-mongo');
 var Promises = require('bluebird');
 var moment = require('moment');
-var helmet = require('helmet');
-
-// Promises.promisify(XMLParser);
 
 var app = express();
 
@@ -99,8 +95,7 @@ app.post('/items', ((req, res, next) => {
         let dateOnRecord = data[data.length-1].timeEnd.slice(0,19);
         var now = moment();
         var dateToday = (now.format("YYYY-MM-DDTHH:mm:ss[Z]"));
-        // console.log('dateToday:        ', dateToday);
-        // console.log('date from the DB: ', dateOnRecord);
+
         if (dateToday > dateOnRecord) {
           console.log('NEEDS NEWER DATA');
           helpers.getGeocoding(req.body)
@@ -122,7 +117,6 @@ app.post('/items', ((req, res, next) => {
                   })
                 })
                 .then((result) => {
-                  // console.log('PARSED TEXT TO PASS TO SAVE FUNCTION', result);
                   return new Promise ((resolve, reject) => {
                     items.saveWeather(result, function (err, zipcode) {
                       if (err) {
