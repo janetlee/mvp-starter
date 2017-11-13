@@ -2,13 +2,13 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var items = require('../database-mongo');
 var helpers = require('../helpers/helpers.js');
-var XMLParser = require('xml2js').parseString;
-var underscore = require('underscore');
+// var XMLParser = require('xml2js').parseString;
+// var underscore = require('underscore');
 var Promises = require('bluebird');
 var moment = require('moment');
 var helmet = require('helmet');
 
-Promises.promisify(XMLParser);
+// Promises.promisify(XMLParser);
 
 var app = express();
 
@@ -55,19 +55,7 @@ app.post('/items', ((req, res, next) => {
             geocodeBody = body;
 
             helpers.getNWSData(req.body)
-              .then((body) => {
-                return new Promise ((resolve, reject) => {
-                  XMLParser(body, function (err, result) {
-                    if (err) {
-                      reject(err);
-                    } else {
-                      console.log('INSIDE THE PARSER');
-                      weatherBody = result;
-                      resolve(underscore.extend(result, geocodeBody));
-                    }
-                  })
-                })
-              })
+              .then((body) => helpers.XMLParse(body, geocodeBody))
               .then((result) => {
                 console.log('PARSED TEXT TO PASS TO SAVE FUNCTION', result);
                 return new Promise ((resolve, reject) => {

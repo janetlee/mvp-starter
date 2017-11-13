@@ -4,6 +4,9 @@ var express = require('express');
 var moment = require('moment');
 var Promises = require('bluebird');
 var request = require('request');
+var XMLParser = require('xml2js').parseString;
+var underscore = require('underscore');
+
 
 var now = moment();
 var dateToday = (now.format("YYYY-MM-DDTHH:mm:ss"));
@@ -30,7 +33,7 @@ module.exports.getNWSData = function(body) {
         console.log(err);
       } else {
         console.log('Inside the Weather promise');
-        setTimeout(() => {resolve(body)},10);
+        resolve(body);
       }
     })
   })
@@ -44,35 +47,28 @@ module.exports.getGeocoding = function(body) {
     }
   };
 
-  // console.log(options);
-  return new Promise ((resolve, reject) => {
-    request(options, (err, res, body) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('Inside the Geocode promise');
-        body = JSON.parse(body);
-        resolve(body);
-      }
-    })
-  })
+  return promiseStructure(options, 'Inside the Geocode promise');
 };
 
-module.exports.getMap = function(body) {
+module.exports.getStaticMap = function(latlong) {
   let options = {
-    url: 'https://maps.googleapis.com/maps/api/staticmap/' + '&key=' + config.StaticMap_API_KEY,
+    url: 'https://maps.googleapis.com/maps/api/staticmap/?center=' + latlong +
+    'zoom=14&size=400x400&key=' + config.StaticMap_API_KEY,
     headers: {
       'User-Agent': 'request'
     }
   };
 
-  // console.log(options);
+  return promiseStructure(options, 'Inside the Map promise');
+};
+
+const promiseStructure = function(options, logMessageString) {
   return new Promise ((resolve, reject) => {
     request(options, (err, res, body) => {
       if (err) {
         console.log(err);
       } else {
-        console.log('Inside the Geocode promise');
+        console.log(logMessageString);
         body = JSON.parse(body);
         resolve(body);
       }
@@ -80,6 +76,20 @@ module.exports.getMap = function(body) {
   })
 };
 
+const XMLParse = function(body, geocodeBody) {
+  return new Promise ((resolve, reject) => {
+    XMLParser(body, function (err, weatherBody) {
+      if (err) {
+        reject(err);
+      } else {
+        console.log('INSIDE THE PARSER');
+        // weatherBody = result;
+        resolve(underscore.extend(weatherBody, geocodeBody));
+      }
+    })
+  })
+};
 
-
+module.exports.promiseStructure = promiseStructure;
+module.exports.XMLParse = XMLParse;
 module.exports.getLastRecord = (data => data[data.length-1])
