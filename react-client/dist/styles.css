@@ -1,11 +1,17 @@
 body {
+  /*background-color: #AFF4FF;*/
+  background-color: #4B7096;
   font-family: 'Tauri', sans-serif;
 }
 
-h1 .header {
+div .header {
+  /*background-color: #6496C9;*/
+  background-color: #4B7096;
   font-family: 'Secular One', sans-serif;
 }
 
-h2, h5 {
+div .display {
+  background-color: #c5e5f5;
   font-family: 'Secular One', sans-serif;
+  margin-left: '30px';
 }

@@ -23,8 +23,7 @@ let weatherSchema = mongoose.Schema({
 
 let Weather = mongoose.model('Weather', weatherSchema);
 
-var saveWeather = ((data, callback) => {
-  console.log('Inside saveWeather');
+var saveWeather = (data => {
 
   let firstTemp = function(data){
     let a = data.dwml.data[0].parameters[0].temperature[0].name[0];
@@ -56,22 +55,17 @@ var saveWeather = ((data, callback) => {
     forecastURL: data.dwml.data[0].moreWeatherInformation[0]['_']
   };
 
-  console.log(incomingWeather);
-
   var weather = new Weather(incomingWeather);
 
-  callback(null, weather.save());
+  return weather.save();
 });
 
-var retrieveWeather = function(zipcode, callback) {
-  console.log('INSIDE WEATHER RETRIEVAL METHOD');
-  Weather.find({'zipcode': zipcode}, function(err, items) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, items);
-    }
-  });
+var retrieveWeather = function(zipcode) {
+  if (typeof zipcode === 'object' ){
+    return Weather.find({'zipcode': zipcode.zipcode});
+  } else {
+    return Weather.find({'zipcode': zipcode});
+  }
 };
 
 module.exports.saveWeather = saveWeather;

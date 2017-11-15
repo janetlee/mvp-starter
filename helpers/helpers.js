@@ -25,7 +25,6 @@ module.exports.getNWSData = function(body) {
     }
   };
 
-  // console.log(options);
   // pass the requst options to the request in a Promise
   return new Promise ((resolve, reject) => {
     request(options, (err, res, body) => {

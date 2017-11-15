@@ -22,9 +22,11 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='header'>
+        <div>
         <input type="text" value={this.state.zipEntry} onChange={this.handleZipcodeEntry.bind(this)}></input>
         <button onClick={this.handleSubmit.bind(this, this.state.zipEntry)} >Submit!</button>
+        </div>
       </div>
 
     );
