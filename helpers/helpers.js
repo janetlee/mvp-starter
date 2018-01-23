@@ -6,8 +6,6 @@ var Promises = require('bluebird');
 var request = require('request');
 var XMLParser = require('xml2js').parseString;
 var underscore = require('underscore');
-
-
 var now = moment();
 var dateToday = (now.format("YYYY-MM-DDTHH:mm:ss"));
 var dateTomorrow = (moment(dateToday).add(1, 'day').format("YYYY-MM-DDTHH:mm:ss"));
@@ -32,7 +30,7 @@ module.exports.getNWSData = function(body) {
         console.log(err);
       } else {
         console.log('Inside the Weather promise');
-        resolve(body);
+        setTimeout(() => {resolve(body)},10);
       }
     })
   })
@@ -67,7 +65,7 @@ const promiseStructure = function(options, logMessageString) {
       if (err) {
         console.log(err);
       } else {
-        console.log(logMessageString);
+        console.log('Inside the Geocode promise');
         body = JSON.parse(body);
         resolve(body);
       }
@@ -89,4 +87,4 @@ const XMLParse = function(body, geocodeBody) {
 
 module.exports.promiseStructure = promiseStructure;
 module.exports.XMLParse = XMLParse;
-module.exports.getLastRecord = (data => data[data.length-1])
+module.exports.getLastRecord = (data => data[data.length-1]);

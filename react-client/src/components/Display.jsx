@@ -28,7 +28,6 @@ class Display extends React.Component {
         <iframe src={this.props.forecastURL} title="iframe example 1" width="800" height="800">
           <p>View the full forecast here</p>
         </iframe>
-
       </div>
     )
   }

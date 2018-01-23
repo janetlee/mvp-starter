@@ -32,3 +32,6 @@ This is a weather app that allows as user to enter in a zip code and check the c
 * Alternate page view may render a 3-day forecast for the zipcode, or at least have a link for it. :white_check_mark: Pulls in full NWS forecast page
 
 * Alternate page view may have a historical view of the weather for the zipcode. :x: Not built
+
+#mvp-starter
+This is a project I completed as a student at [hackreactor](http://hackreactor.com). This project was worked on solo.
