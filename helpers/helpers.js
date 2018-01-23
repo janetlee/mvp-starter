@@ -30,7 +30,7 @@ module.exports.getNWSData = function(body) {
         console.log(err);
       } else {
         console.log('Inside the Weather promise');
-        setTimeout(() => {resolve(body)},10);
+        resolve(body);
       }
     })
   })
@@ -65,7 +65,7 @@ const promiseStructure = function(options, logMessageString) {
       if (err) {
         console.log(err);
       } else {
-        console.log('Inside the Geocode promise');
+        console.log(logMessageString);
         body = JSON.parse(body);
         resolve(body);
       }

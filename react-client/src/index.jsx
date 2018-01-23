@@ -23,6 +23,7 @@ class App extends React.Component {
     $.ajax({
       url: '/items',
       success: (data) => {
+        console.log('ENTIRE DATA OBJECT: ', data);
         console.log('CHANGING STATES');
         if (data) {
           this.setState({

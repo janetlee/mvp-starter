@@ -35,3 +35,7 @@ This is a weather app that allows as user to enter in a zip code and check the c
 
 #mvp-starter
 This is a project I completed as a student at [hackreactor](http://hackreactor.com). This project was worked on solo.
+
+# To start:
+* First start MongoDB by typing "mongod" in a new shell.
+* On a new shell, navigate to the server directory, type "nodemon"

@@ -1,3 +1,5 @@
 node_modules
 config.js
 sampledata.xml
+error.log
+package-lock.json
