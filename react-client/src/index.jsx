@@ -52,7 +52,6 @@ class App extends React.Component {
       method: 'POST',
       data: {zipcode: data},
       success: (data) => {
-
         console.log('ENTIRE DATA OBJECT: ', data);
 
         if (data) {

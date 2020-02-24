@@ -1,3 +1,7 @@
+#mvp-starter
+This is a project I completed as a student at [hackreactor](http://hackreactor.com). This project was worked on solo.
+
+
 README.md
 
 This is a weather app that allows as user to enter in a zip code and check the current weather with the National Weather Service.

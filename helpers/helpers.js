@@ -6,8 +6,6 @@ var Promises = require('bluebird');
 var request = require('request');
 var XMLParser = require('xml2js').parseString;
 var underscore = require('underscore');
-
-
 var now = moment();
 var dateToday = (now.format("YYYY-MM-DDTHH:mm:ss"));
 var dateTomorrow = (moment(dateToday).add(1, 'day').format("YYYY-MM-DDTHH:mm:ss"));
@@ -89,4 +87,4 @@ const XMLParse = function(body, geocodeBody) {
 
 module.exports.promiseStructure = promiseStructure;
 module.exports.XMLParse = XMLParse;
-module.exports.getLastRecord = (data => data[data.length-1])
+module.exports.getLastRecord = (data => data[data.length-1]);
